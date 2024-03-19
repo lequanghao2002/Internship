@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BNI.Models
+namespace BNI.Models.Domain
 {
     public class Platform
     {

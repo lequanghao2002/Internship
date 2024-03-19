@@ -20,5 +20,7 @@ namespace BNI.Models.Domain
         public string Condition_6 { get; set; } = string.Empty;
         public string Condition_7 { get; set; } = string.Empty;
         public bool Condition_8 { get; set; }
+
+        public Member Member { get; set; }
     }
 }

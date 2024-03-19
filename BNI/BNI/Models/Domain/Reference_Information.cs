@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BNI.Models
+namespace BNI.Models.Domain
 {
     public class Reference_Information
     {
@@ -9,5 +9,7 @@ namespace BNI.Models
         [Required(ErrorMessage = "Vui lòng điền một .")]
         public string Reference_1 { get; set; }
         public string Reference_2 { get; set; }
+
+        public Member Member { get; set; }
     }
 }

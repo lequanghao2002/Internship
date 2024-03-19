@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BNI.Models
+namespace BNI.Models.Domain
 {
     public class Membership_Term
     {
@@ -11,7 +11,8 @@ namespace BNI.Models
         public bool CoC { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-
+        public int Member_Id { get; set; }
+        public Member Member { get; set; }
 
     }
 }

@@ -30,6 +30,21 @@ namespace BNI.Models.Domain
         public int User_ID { get; set; }
         [ForeignKey("UserId")]
         public User? User { get; set; }
-       
+
+        public int BusinessSector_ID { get; set; }
+        [ForeignKey("BusinessSector_ID")]
+        public Business_Sector Business_Sector { get; set; }
+
+        public int MembershipTerm_ID { get; set; }
+        [ForeignKey("MembershipTerm_ID")]
+        public Membership_Term Membership_Term { get; set; }
+
+        public int ReferenceInformation_ID { get; set; }
+        [ForeignKey("ReferenceInformation_ID ")]
+        public Reference_Information Reference_Information { get; set; }
+
+        public int AdditionalInformation_ID { get; set; }
+        [ForeignKey("AdditionalInformation_ID")]
+        public AddtionalInformation AddtionalInformation { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BNI.Models
+namespace BNI.Models.Domain
 {
     public class Contact
     {
@@ -11,7 +11,7 @@ namespace BNI.Models
         public string FullName { get; set; }
         [Required(ErrorMessage = "Vui lòng thông tin công việc")]
         public string Job { get; set; }
-        
+
         public string CompanyName { get; set; }
         public string CompanyAddress { get; set; }
         public string YearExperience { get; set; }

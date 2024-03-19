@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BNI.Models
+namespace BNI.Models.Domain
 {
     public class Business_Support
     {
@@ -13,16 +13,16 @@ namespace BNI.Models
         public string Address { get; set; }
         public string link { get; set; }
         public string Description { get; set; }
-        IFormFile Logo { get; set; }
-        IFormFile Image { get; set; }
-        IFormFile QRCode { get; set; }
-        IFormFile Document { get; set; }
+        public string Logo { get; set; }
+        public string Image { get; set; }
+        public string QRCode { get; set; }
+        public string Document { get; set; }
 
         public int Category_Support_Id { get; set; }
         public Category_Support Category_Support { get; set; }
         public List<Step> Steps { get; set; }
-        //public int Member_Id { get; set; }
-        //public Member Member { get; set; }
-        
+        public int Member_Id { get; set; }
+       public Member Member { get; set; }
+
     }
 }
