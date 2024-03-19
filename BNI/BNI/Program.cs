@@ -1,4 +1,5 @@
 using BNI.Data;
+using BNI.Respositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +15,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString)
 );
-
+builder.Services.AddScoped<ILogoRepository, LogoRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
