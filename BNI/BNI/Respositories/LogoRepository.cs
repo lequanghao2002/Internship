@@ -15,20 +15,18 @@ namespace BNI.Respositories
         }
         public async Task<AddLogoDTO> AddLogoAsync([FromForm]AddLogoDTO addLogoDTO)
         {
-           
-
                 var logo = new Logo { Name = addLogoDTO.NameLogo };
                 if (addLogoDTO.Image.Length > 0)
                 {
                 
-                var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "Logo",addLogoDTO.NameLogo);
-                Directory.CreateDirectory(folderPath);
-                var uniqueFileName =  "Image" + addLogoDTO.Image.FileName;
-                var imagePath = Path.Combine(folderPath, uniqueFileName);
-                using (var stream = System.IO.File.Create(imagePath))
-                {
-                    await addLogoDTO.Image.CopyToAsync(stream);
-                }
+                    var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "Logo",addLogoDTO.NameLogo);
+                    Directory.CreateDirectory(folderPath);
+                    var uniqueFileName =  "Image" + addLogoDTO.Image.FileName;
+                    var imagePath = Path.Combine(folderPath, uniqueFileName);
+                    using (var stream = System.IO.File.Create(imagePath))
+                    {
+                        await addLogoDTO.Image.CopyToAsync(stream);
+                    }
                     logo.Path = uniqueFileName;
                 }
                 else

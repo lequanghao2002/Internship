@@ -19,6 +19,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<ILogoRepository, LogoRepository>();
 builder.Services.AddScoped<IPlatformRepository, PlatformRepository>();
 builder.Services.AddScoped<IContactRepository, ContactRepository>();
+builder.Services.AddScoped<IBusinessSectorRepository, BusinessSectorRepository>();
+builder.Services.AddScoped<ICategorySupportRepository, CategorySupportRepository>();  
 builder.Services.AddScoped<EmailService>();
 var app = builder.Build();
 

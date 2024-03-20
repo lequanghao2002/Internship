@@ -1,6 +1,7 @@
 ﻿using BNI.Data;
 using BNI.Models.Domain;
 using BNI.Models.DTO;
+using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Asn1.Cmp;
 
 namespace BNI.Respositories
@@ -50,12 +51,14 @@ namespace BNI.Respositories
 
         public PlatformDTO GetById(int id)
         {
-            var platform = _appDbContext.Platform.Where(x => x.Platform_Id == id);
-            var platformDTO = platform.Select(p => new PlatformDTO()
+            var platform = _appDbContext.Platform.
+                Include(p => p.Contacts).FirstOrDefault(x => x.Platform_Id == id);
+            var platformDTO = new PlatformDTO
             {
-                Id = p.Platform_Id,
-                Name = p.Name
-            }).FirstOrDefault();
+                Id = platform.Platform_Id,
+                Name = platform.Name,
+                Contacts = platform.Contacts.Select(c => c.FullName).ToList()
+            };
             return platformDTO;
      
         }

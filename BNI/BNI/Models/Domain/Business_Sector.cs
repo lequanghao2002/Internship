@@ -9,6 +9,6 @@ namespace BNI.Models.Domain
         [Required(ErrorMessage = "Please enter a business sector.")]
         public string Name { get; set; }
 
-        public Member Member { get; set; }
+        public List<Member> Member { get; set; }
     }
 }
