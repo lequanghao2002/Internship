@@ -4,6 +4,7 @@ using BNI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BNI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240320040914_UpdateContact_2")]
+    partial class UpdateContact_2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -473,7 +475,8 @@ namespace BNI.Migrations
                     b.HasIndex("AdditionalInformation_ID")
                         .IsUnique();
 
-                    b.HasIndex("BusinessSector_ID");
+                    b.HasIndex("BusinessSector_ID")
+                        .IsUnique();
 
                     b.HasIndex("MembershipTerm_ID")
                         .IsUnique();
@@ -780,8 +783,8 @@ namespace BNI.Migrations
                         .IsRequired();
 
                     b.HasOne("BNI.Models.Domain.Business_Sector", "Business_Sector")
-                        .WithMany("Member")
-                        .HasForeignKey("BusinessSector_ID")
+                        .WithOne("Member")
+                        .HasForeignKey("BNI.Models.Domain.Member", "BusinessSector_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -854,7 +857,8 @@ namespace BNI.Migrations
 
             modelBuilder.Entity("BNI.Models.Domain.Business_Sector", b =>
                 {
-                    b.Navigation("Member");
+                    b.Navigation("Member")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("BNI.Models.Domain.Business_Support", b =>

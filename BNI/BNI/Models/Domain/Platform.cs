@@ -8,5 +8,6 @@ namespace BNI.Models.Domain
         public int Platform_Id { get; set; }
         [Required(ErrorMessage = "Vui lòng điền tên lĩnh vực.")]
         public string Name { get; set; }
+        public List<Contact> Contacts { get; set;}
     }
 }
