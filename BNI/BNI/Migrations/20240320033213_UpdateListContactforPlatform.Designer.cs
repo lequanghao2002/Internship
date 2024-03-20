@@ -4,6 +4,7 @@ using BNI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BNI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240320033213_UpdateListContactforPlatform")]
+    partial class UpdateListContactforPlatform
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -259,6 +261,9 @@ namespace BNI.Migrations
                     b.Property<int>("PlatformId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Platform_Id")
+                        .HasColumnType("int");
+
                     b.Property<string>("Position")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -273,7 +278,7 @@ namespace BNI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PlatformId");
+                    b.HasIndex("Platform_Id");
 
                     b.ToTable("Contact");
                 });
@@ -746,7 +751,7 @@ namespace BNI.Migrations
                 {
                     b.HasOne("BNI.Models.Domain.Platform", "Platform")
                         .WithMany("Contacts")
-                        .HasForeignKey("PlatformId")
+                        .HasForeignKey("Platform_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -17,11 +17,10 @@ namespace BNI.Models.Domain
         public string YearExperience { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
-        public string Message { get; set; }
+        public string Position { get; set; } //chức vụ
         public bool MemberOfCSJ { get; set; }
-        public bool SupportInformation { get; set; }
+        public string SupportInformation { get; set; }
         public int PlatformId { get; set; }
-        [ForeignKey("Platform_Id")]
         public Platform Platform { get; set; }
     }
 }
