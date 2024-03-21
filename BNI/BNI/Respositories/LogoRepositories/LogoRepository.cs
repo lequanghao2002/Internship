@@ -4,39 +4,40 @@ using BNI.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace BNI.Respositories
+namespace BNI.Respositories.LogoRepositories.LogoRepository
 {
     public class LogoRepository : ILogoRepository
     {
         private readonly AppDbContext _dbContext;
 
-        public LogoRepository(AppDbContext dbContext) { 
+        public LogoRepository(AppDbContext dbContext)
+        {
             _dbContext = dbContext;
         }
-        public async Task<AddLogoDTO> AddLogoAsync([FromForm]AddLogoDTO addLogoDTO)
+        public async Task<AddLogoDTO> AddLogoAsync([FromForm] AddLogoDTO addLogoDTO)
         {
-                var logo = new Logo { Name = addLogoDTO.NameLogo };
-                if (addLogoDTO.Image.Length > 0)
+            var logo = new Logo { Name = addLogoDTO.NameLogo };
+            if (addLogoDTO.Image.Length > 0)
+            {
+
+                var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "Logo", addLogoDTO.NameLogo);
+                Directory.CreateDirectory(folderPath);
+                var uniqueFileName = "Image" + addLogoDTO.Image.FileName;
+                var imagePath = Path.Combine(folderPath, uniqueFileName);
+                using (var stream = File.Create(imagePath))
                 {
-                
-                    var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "Logo",addLogoDTO.NameLogo);
-                    Directory.CreateDirectory(folderPath);
-                    var uniqueFileName =  "Image" + addLogoDTO.Image.FileName;
-                    var imagePath = Path.Combine(folderPath, uniqueFileName);
-                    using (var stream = System.IO.File.Create(imagePath))
-                    {
-                        await addLogoDTO.Image.CopyToAsync(stream);
-                    }
-                    logo.Path = uniqueFileName;
+                    await addLogoDTO.Image.CopyToAsync(stream);
                 }
-                else
-                {
+                logo.Path = uniqueFileName;
+            }
+            else
+            {
                 logo.Path = "";
-                }
-                _dbContext.Logo.Add(logo);
-                _dbContext.SaveChanges();
-                return addLogoDTO;
-    
+            }
+            _dbContext.Logo.Add(logo);
+            _dbContext.SaveChanges();
+            return addLogoDTO;
+
         }
 
         public Logo? DeleteLogoById(int id)
@@ -107,7 +108,7 @@ namespace BNI.Respositories
 
                     var uniqueFileName = "Image" + addLogoDTO.Image.FileName;
                     var imagePath = Path.Combine(newFolderPath, uniqueFileName);
-                    using (var stream = System.IO.File.Create(imagePath))
+                    using (var stream = File.Create(imagePath))
                     {
                         await addLogoDTO.Image.CopyToAsync(stream);
                     }

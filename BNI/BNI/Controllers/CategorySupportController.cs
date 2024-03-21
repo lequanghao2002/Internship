@@ -1,6 +1,6 @@
 ﻿using BNI.Data;
 using BNI.Models.DTO;
-using BNI.Respositories;
+using BNI.Respositories.CategorySupportRepositories.CategorySupportRepository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

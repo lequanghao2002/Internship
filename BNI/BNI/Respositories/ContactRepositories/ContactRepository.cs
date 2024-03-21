@@ -2,7 +2,7 @@
 using BNI.Models.Domain;
 using BNI.Models.DTO;
 
-namespace BNI.Respositories
+namespace BNI.Respositories.ContactRepositories.ContactRepository
 {
     public class ContactRepository : IContactRepository
     {
@@ -15,7 +15,7 @@ namespace BNI.Respositories
         public AddRequestContactDTO AddContact(AddRequestContactDTO contact)
         {
             var platform = _appDbContext.Platform.FirstOrDefault(p => p.Platform_Id == contact.Platform_Id);
-            if(platform != null)
+            if (platform != null)
             {
                 var newContact = new Contact
                 {
@@ -33,8 +33,8 @@ namespace BNI.Respositories
 
                 };
                 _appDbContext.Contact.Add(newContact);
-                 _appDbContext.SaveChangesAsync();
-            }    
+                _appDbContext.SaveChangesAsync();
+            }
             return contact;
         }
 
@@ -106,7 +106,7 @@ namespace BNI.Respositories
                 contactToUpdate.MemberOfCSJ = contact.MemberOfCSJ;
                 contactToUpdate.SupportInformation = contact.SupportInformation;
                 contactToUpdate.PlatformId = contact.Platform_Id;
-                 _appDbContext.SaveChangesAsync();
+                _appDbContext.SaveChangesAsync();
             }
             return contact;
         }

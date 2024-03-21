@@ -1,7 +1,7 @@
 ﻿using BNI.Models.DTO;
 using BNI.Models.Domain;
 
-namespace BNI.Respositories
+namespace BNI.Respositories.BusinessSectorRepositories.BusinessSectorRepository
 {
     public interface IBusinessSectorRepository
     {

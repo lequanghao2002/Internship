@@ -1,6 +1,6 @@
 ﻿using BNI.Data;
 using BNI.Models.DTO;
-using BNI.Respositories;
+using BNI.Respositories.LogoRepositories.LogoRepository;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
