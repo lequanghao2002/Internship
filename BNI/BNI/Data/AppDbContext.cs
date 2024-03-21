@@ -5,14 +5,35 @@ namespace BNI.Data
 {
     public class AppDbContext : DbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) 
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-        
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            var listRole = new List<Role>
+            {
+                new Role
+                {
+                    Id = 1,
+                    Name = "Admin",
+                },
+                new Role
+                {
+                    Id = 2,
+                    Name = "User",
+                },
+                new Role
+                {
+                    Id = 3,
+                    Name = "Member",
+                }
+            };
+            
+            modelBuilder.Entity<Role>().HasData(listRole);
         }
 
         public DbSet<AddtionalInformation> AddtionalInformation { get; set; }
@@ -32,6 +53,6 @@ namespace BNI.Data
         public DbSet<Reference_Information> Reference_Information { get; set; }
         public DbSet<Step> Step { get; set; }
         public DbSet<User> User { get; set; }
-
+        public DbSet<Role> Role { get; set; }
     }
 }
