@@ -4,6 +4,7 @@ using BNI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BNI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240320073739_update-database")]
+    partial class updatedatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -252,6 +254,10 @@ namespace BNI.Migrations
                     b.Property<bool>("MemberOfCSJ")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -259,13 +265,11 @@ namespace BNI.Migrations
                     b.Property<int>("PlatformId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Position")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Platform_Id")
+                        .HasColumnType("int");
 
-                    b.Property<string>("SupportInformation")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("SupportInformation")
+                        .HasColumnType("bit");
 
                     b.Property<string>("YearExperience")
                         .IsRequired()
@@ -273,7 +277,7 @@ namespace BNI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PlatformId");
+                    b.HasIndex("Platform_Id");
 
                     b.ToTable("Contact");
                 });
@@ -473,7 +477,8 @@ namespace BNI.Migrations
                     b.HasIndex("AdditionalInformation_ID")
                         .IsUnique();
 
-                    b.HasIndex("BusinessSector_ID");
+                    b.HasIndex("BusinessSector_ID")
+                        .IsUnique();
 
                     b.HasIndex("MembershipTerm_ID")
                         .IsUnique();
@@ -639,19 +644,19 @@ namespace BNI.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "75a5e437-8b3d-4ca9-ac44-2a7267ceec67",
+                            ConcurrencyStamp = "ea2e5b07-2478-441f-859d-c52448c92d0e",
                             Name = "Admin"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "2360b366-aa66-409c-bad8-1e291f56f759",
+                            ConcurrencyStamp = "ed70b6b0-76ac-4217-9e32-a4928833cccc",
                             Name = "User"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "33c5fb16-6dc8-4166-b4ee-88ff153d11f5",
+                            ConcurrencyStamp = "56eacb54-b5b6-48be-b82e-d5f5f97be562",
                             Name = "Member"
                         });
                 });
@@ -705,18 +710,22 @@ namespace BNI.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("City")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Company")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Country")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -726,6 +735,7 @@ namespace BNI.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FullName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -762,9 +772,11 @@ namespace BNI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("VAT")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Zip")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -815,8 +827,8 @@ namespace BNI.Migrations
             modelBuilder.Entity("BNI.Models.Domain.Contact", b =>
                 {
                     b.HasOne("BNI.Models.Domain.Platform", "Platform")
-                        .WithMany("Contacts")
-                        .HasForeignKey("PlatformId")
+                        .WithMany()
+                        .HasForeignKey("Platform_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -851,8 +863,8 @@ namespace BNI.Migrations
                         .IsRequired();
 
                     b.HasOne("BNI.Models.Domain.Business_Sector", "Business_Sector")
-                        .WithMany("Member")
-                        .HasForeignKey("BusinessSector_ID")
+                        .WithOne("Member")
+                        .HasForeignKey("BNI.Models.Domain.Member", "BusinessSector_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -936,7 +948,8 @@ namespace BNI.Migrations
 
             modelBuilder.Entity("BNI.Models.Domain.Business_Sector", b =>
                 {
-                    b.Navigation("Member");
+                    b.Navigation("Member")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("BNI.Models.Domain.Business_Support", b =>
@@ -953,11 +966,6 @@ namespace BNI.Migrations
                 {
                     b.Navigation("Member")
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("BNI.Models.Domain.Platform", b =>
-                {
-                    b.Navigation("Contacts");
                 });
 
             modelBuilder.Entity("BNI.Models.Domain.Posts", b =>
