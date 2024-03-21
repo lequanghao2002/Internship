@@ -4,13 +4,13 @@ using BNI.Models.DTO;
 using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Asn1.Cmp;
 
-namespace BNI.Respositories
+namespace BNI.Respositories.PlatformRepositories.PlatformRepository
 {
-    public class PlatformRepository : IPlatformRepository
+    public class PlatformRepository  : IPlatformRepository
     {
         private readonly AppDbContext _appDbContext;
 
-        public PlatformRepository(AppDbContext appDbContext) 
+        public PlatformRepository(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
         }
@@ -39,14 +39,14 @@ namespace BNI.Respositories
 
         public List<PlatformDTO> GetAll()
         {
-            var platforms =  _appDbContext.Platform.Select(p => new PlatformDTO()
+            var platforms = _appDbContext.Platform.Select(p => new PlatformDTO()
             {
                 Id = p.Platform_Id,
                 Name = p.Name,
                 Contacts = p.Contacts.Select(c => c.FullName).ToList()
-                
+
             }).ToList();
-            return  platforms;
+            return platforms;
         }
 
         public PlatformDTO GetById(int id)
@@ -60,7 +60,7 @@ namespace BNI.Respositories
                 Contacts = platform.Contacts.Select(c => c.FullName).ToList()
             };
             return platformDTO;
-     
+
         }
 
         public async Task<AddRequestPlatformDTO> UpdatePlatform(int platformId, AddRequestPlatformDTO platform)
@@ -74,7 +74,7 @@ namespace BNI.Respositories
                     platformToUpdate.Name = platform.Name;
                 }
                 // Cập nhật các trường khác tương tự
-                
+
                 await _appDbContext.SaveChangesAsync();
             }
             return platform;

@@ -3,13 +3,13 @@ using BNI.Models.Domain;
 using BNI.Models.DTO;
 using Microsoft.EntityFrameworkCore;
 
-namespace BNI.Respositories
+namespace BNI.Respositories.BusinessSectorRepositories.BusinessSectorRepository
 {
     public class BusinessSectorRepository : IBusinessSectorRepository
     {
         private readonly AppDbContext _dbContext;
 
-        public BusinessSectorRepository(AppDbContext dbContext) 
+        public BusinessSectorRepository(AppDbContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -35,7 +35,7 @@ namespace BNI.Respositories
         public Business_Sector? DeleteBusinessSector(int businessSectorId)
         {
             var deleteBusinessSector = _dbContext.Business_Sector.Find(businessSectorId);
-            if(deleteBusinessSector != null)
+            if (deleteBusinessSector != null)
             {
                 _dbContext.Business_Sector.Remove(deleteBusinessSector);
                 _dbContext.SaveChanges();
@@ -50,7 +50,7 @@ namespace BNI.Respositories
         public List<BusinessSectorDTO> GetAll()
         {
             var list = _dbContext.Business_Sector.ToList();
-            if(list != null)
+            if (list != null)
             {
                 var businessSectors = _dbContext.Business_Sector.Select(b => new BusinessSectorDTO()
                 {
@@ -73,8 +73,8 @@ namespace BNI.Respositories
             {
                 Id = getBusinessSector.Id,
                 Name = getBusinessSector.Name,
-                Members = getBusinessSector.Member.Select(Member => $"{Member.FirstName}{Member.LastName}").ToList()        
-               
+                Members = getBusinessSector.Member.Select(Member => $"{Member.FirstName}{Member.LastName}").ToList()
+
             };
             return businessSectorDTO;
         }
@@ -82,7 +82,7 @@ namespace BNI.Respositories
         public AddRequestBusinessSector UpdateBusinessSector(int businessSectorId, AddRequestBusinessSector businessSector)
         {
             var UpdateBusinessSector = _dbContext.Business_Sector.FirstOrDefault(x => x.Id == businessSectorId);
-            if(UpdateBusinessSector == null)
+            if (UpdateBusinessSector == null)
             {
                 throw new Exception($"Không tìm thấy Business Sector với ID {businessSectorId}");
             }

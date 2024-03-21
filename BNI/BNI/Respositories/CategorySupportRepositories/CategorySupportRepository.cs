@@ -3,22 +3,22 @@ using BNI.Models.Domain;
 using BNI.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BNI.Respositories
+namespace BNI.Respositories.CategorySupportRepositories.CategorySupportRepository
 {
     public class CategorySupportRepository : ICategorySupportRepository
     {
         private readonly AppDbContext _dbContext;
 
-        public CategorySupportRepository(AppDbContext dbContext) 
+        public CategorySupportRepository(AppDbContext dbContext)
         {
             _dbContext = dbContext;
         }
         public async Task<AddRequestCategoySupportDTO> AddCategorySupport(AddRequestCategoySupportDTO addRequest)
         {
-            var newSupportCategory = new Category_Support 
+            var newSupportCategory = new Category_Support
             {
-                Title = addRequest.Title, 
-                Description = addRequest.Description 
+                Title = addRequest.Title,
+                Description = addRequest.Description
             };
             if (addRequest.Image.Length > 0)
             {
@@ -26,7 +26,7 @@ namespace BNI.Respositories
                 Directory.CreateDirectory(folderPath);
                 var uniqueFileName = "Image" + addRequest.Image.FileName;
                 var imagePath = Path.Combine(folderPath, uniqueFileName);
-                using (var stream = System.IO.File.Create(imagePath))
+                using (var stream = File.Create(imagePath))
                 {
                     await addRequest.Image.CopyToAsync(stream);
                 }
@@ -113,7 +113,7 @@ namespace BNI.Respositories
 
                     var uniqueFileName = "Image" + categoySupport.Image.FileName;
                     var imagePath = Path.Combine(newFolderPath, uniqueFileName);
-                    using (var stream = System.IO.File.Create(imagePath))
+                    using (var stream = File.Create(imagePath))
                     {
                         await categoySupport.Image.CopyToAsync(stream);
                     }

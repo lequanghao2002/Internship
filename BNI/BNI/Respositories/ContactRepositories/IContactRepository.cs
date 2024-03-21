@@ -1,7 +1,7 @@
 ﻿using BNI.Models.Domain;
 using BNI.Models.DTO;
 
-namespace BNI.Respositories
+namespace BNI.Respositories.ContactRepositories.ContactRepository
 {
     public interface IContactRepository
     {
