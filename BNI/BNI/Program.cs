@@ -1,8 +1,10 @@
-﻿using BNI.Data;
+using BNI.Data;
 using BNI.Models.Domain;
 using BNI.Respositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using BNI.Respositories;
+using BNI.ultils;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -16,11 +18,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(connectionString)
-);
-
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
@@ -30,6 +27,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+builder.Services.AddScoped<ILogoRepository, LogoRepository>();
+builder.Services.AddScoped<IPlatformRepository, PlatformRepository>();
+builder.Services.AddScoped<IContactRepository, ContactRepository>();
+builder.Services.AddScoped<IBusinessSectorRepository, BusinessSectorRepository>();
+builder.Services.AddScoped<ICategorySupportRepository, CategorySupportRepository>();  
+builder.Services.AddScoped<EmailService>();
 
 builder.Services.AddIdentity<User, Role>()
         .AddEntityFrameworkStores<AppDbContext>()
@@ -64,7 +67,6 @@ builder.Services.Configure<IdentityOptions>(options =>
 });
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
