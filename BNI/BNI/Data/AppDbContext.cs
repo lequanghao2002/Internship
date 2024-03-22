@@ -1,5 +1,6 @@
 ﻿using BNI.Models.Domain;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace BNI.Data
 {
@@ -11,7 +12,17 @@ namespace BNI.Data
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
+
         {
+            modelBuilder.Entity<Events>()
+        .HasMany(e => e.EventTitles)
+        .WithOne(et => et.Event)
+        .HasForeignKey(et => et.EventId);
+
+            modelBuilder.Entity<EventTitle>()
+                .HasMany(et => et.TitleImages)
+                .WithOne(ti => ti.EventTitle)
+                .HasForeignKey(ti => ti.EventTitleId);
             base.OnModelCreating(modelBuilder);
 
             var listRole = new List<Role>
@@ -54,5 +65,7 @@ namespace BNI.Data
         public DbSet<Step> Step { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<Role> Role { get; set; }
+        public DbSet<TitleImage> TitleImage { get; set; }
+        public DbSet<EventTitle> EventTitle { get; set; }
     }
 }

@@ -7,16 +7,17 @@ namespace BNI.Models.Domain
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }
-        public string Header { get; set; } = string.Empty;
-        public string Title_1 { get; set; } = string.Empty;
-        public string Title_2 { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
-        public string Image { get; set; } = string.Empty;
-        public DateTime DateTime { get; set; }
-        public DateTime TimeStart { get; set; }
-        public DateTime TimeEnd { get; set; }
+        public int Id { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public DateTime StartTime { get; set; } = new DateTime();
+        public DateTime EndTime { get; set; }   = new DateTime();
+        public DateTime CreatedTime { get; set; } = new DateTime();
         public string Address { get; set; } = string.Empty;
+        public string OrganizerName { get; set; } = string.Empty;
+        public string OrganizerEmail { get; set; } = string.Empty;
+
+        // Navigation property
+        public List<EventTitle> EventTitles { get; set; }
 
         public IEnumerable<EventsRegister> EventsRegister { get; set; }
     }
