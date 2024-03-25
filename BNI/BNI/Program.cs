@@ -14,6 +14,7 @@ using BNI.Respositories.ContactRepositories.ContactRepository;
 using BNI.Respositories.LogoRepositories.LogoRepository;
 using BNI.Respositories.PlatformRepositories.PlatformRepository;
 using BNI.Respositories.PostCategoryRepository;
+using BNI.Respositories.StepsRepositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,7 +28,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString)
 );
-
+builder.Services.AddScoped<IStepsRepository, StepsRepository>();
 builder.Services.AddScoped<IBusinessSectorRepository, BusinessSectorRepository>();
 builder.Services.AddScoped<ICategorySupportRepository, CategorySupportRepository>();
 builder.Services.AddScoped<IContactRepository, ContactRepository>();
